@@ -1,17 +1,41 @@
-<a class="sr-only focus:not-sr-only" href="#main">
-  {{ __('Skip to content') }}
-</a>
+@php
+    $cacheStr = 'CI_CACHE_REPLACE_ME';
+@endphp
 
-@include('sections.header')
+<!DOCTYPE html>
+<html lang="{{ get_locale() }}">
+<!--
+Made Together
+[https://together.agency]
+-->
 
-  <main id="main" class="main">
-    @yield('content')
-  </main>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  @hasSection('sidebar')
-    <aside class="sidebar">
-      @yield('sidebar')
-    </aside>
-  @endif
+    {{-- Stylesheets --}}
+    {{--  <link rel="stylesheet" href="/wp-content/themes/theme/dist/webpack/styles.css?v={!! $cacheStr !!}"> --}}
 
-@include('sections.footer')
+    {{-- Add anything wordpressy --}}
+    {{ wp_head() }}
+</head>
+
+<body>
+
+    @include('components.header')
+
+    <main class="content">
+        @yield('content')
+    </main>
+
+    @include('components.footer')
+
+    {{-- JS --}}
+    {{-- <script src="/wp-content/themes/theme/dist/webpack/main.js?v={!! $cacheStr !!}"></script> --}}
+
+    {{ wp_footer() }}
+
+</body>
+
+</html>

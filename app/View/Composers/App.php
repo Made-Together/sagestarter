@@ -6,6 +6,8 @@ use Roots\Acorn\View\Composer;
 
 class App extends Composer
 {
+
+    public $page;
     /**
      * List of views served by this composer.
      *
@@ -24,6 +26,8 @@ class App extends Composer
     {
         return [
             'siteName' => $this->siteName(),
+            'acf' => $this->acf(),
+            'options' => $this->options(),
         ];
     }
 
@@ -35,5 +39,19 @@ class App extends Composer
     public function siteName()
     {
         return get_bloginfo('name', 'display');
+    }
+
+    public function acf()
+    {
+        global $post;
+
+        $this->page = (!is_home()) ? $post : get_page(get_option('page_for_posts'));
+
+        return get_fields($this->page);
+    }
+
+    public function options()
+    {
+        return get_fields('options');
     }
 }
